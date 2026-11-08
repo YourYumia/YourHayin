@@ -1,72 +1,90 @@
+# standard imports
+import json  # noqa: I001
+import sys
+
+# non-standard imports
+import pathlib
+
+# local imports
 import Hayin
-  
-
-# [0]:Keyo (externalised) / [1]: Dara (internalised) | polarity index
-
-# [0]:desire / [1]:status / [2]:completion | alignment index
-
-questions = (
-    Hayin.QuizEntry({
-        "input str": "The things I want most are material (i.e. wealth, friends, property, items)",
-        "polarity index": 0,# Keyo
-        "alignment index": 0# Illio
-    }, {
-        "input str": "I aspire to be liked and may seek affirmation (i.e. of one's identity, worth, or capability)",
-        "polarity index": 0,# Keyo
-        "alignment index": 1# Anemo
-    }, {
-        "input str": "I am most satisfied when I am able to directly support or aid others",
-        "polarity index": 0,# Keyo
-        "alignment index": 2# Dendro
-    }, {
-        "input str": "...",
-        "polarity index": 1,# Dara
-        "alignment index": 0# Paega
-    })
-)
 
 
 
-def ask(query):
-    dummy = (1,2,3,4)# will be used to ensure out_i is a valid int (0, 1, 2, 3)
-    out_i = 0
+def get_file_path(target) -> pathlib.Path:
+    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+        return pathlib.Path(sys._MEIPASS) / target
+    return curr_path / target
+
+questions:tuple[Hayin.QuizEntry] = tuple([] for _ in range(30))# tuple is pre-loaded 
+curr_path = pathlib.Path(__file__).resolve().parent
+with open(get_file_path("qdb.json"), mode='r', encoding='utf-8') as f:
+    # example: questions:[{"input str":"questions","polarity index":0|1,"alignment index":0|1|2}]
+    questions = (Hayin.QuizEntry(question) for question in tuple(json.load(f)['questions']))
+
+
+
+def ask(query) -> int:
+    user_inp:int|str = None
+    err:Exception = None
+    inp_range = (0, 1, 2, 3)
     
-    try:
-        out_i = int(input(f"{query}\n\n/> "))-1
-        dummy[out_i]*10# if out_i is not an int or within range of the array an exception will trigger
-        return out_i# the index that corresponds to the "points" earned/lost
-    except:
-        print(
-            f"\n\nInvalid input received!\n",
-            "Remember...\n",
-            "1. Strongly Disagree",
-            "2. Disagree",
-            "3. Agree",
-            "4. Strongly Agree\n\n"
-        )
-        return ask(query)# exception nests the function once more to create conditional recursion without an explict loop
+    while user_inp not in inp_range:
+        user_inp = input(f"{query}\n\n/> ")
+        
+        if not user_inp.isdigit():
+            err = TypeError
+        else:
+            user_inp = int(user_inp)-1
+            if user_inp not in inp_range:
+                err = ValueError
+        
+        if err != None:
+            print(
+                f"\n\nInvalid input received! {err}\n",
+                "Remember...\n",
+                "1. Strongly Disagree",
+                "2. Disagree",
+                "3. Agree",
+                "4. Strongly Agree\n\n"
+            )
+            continue
+    
+    return user_inp
 
   
 
 def run_quiz(player:Hayin.Character, questions) -> Hayin.Character:
     for q in questions:
-        points = [-1.0, 0.0, 1.0, 3.0][ask(q.question)]# [0]:-1 -> [3]:3.0
+        points = (-1.0, 0.0, 1.0, 3.0)[ask(q.question)]# [0]:-1 -> [3]:3.0
         player.update_attr(q.target[0], q.target[1], points)
     return player
 
 
 
-def main(questions):
-    player = Hayin.Character();
-
-    print(f"\nWoah, welcome to the quiz, {player.username}!\n")
-
-    player = run_quiz(questions)
-
-    print(
-        f"\nYou have a {player.get_polarity()} polarity",
-        f"and are aligned with the {player.get_alignment()} element!"
-    )
+def main(questions) -> None:
+    try:
+        player:Hayin.Character = Hayin.Character();
+        
+        print(f"\nWoah, welcome to the quiz, {player.username}!\n")
+        
+        print('''
+            Your options are (for every question): 1, 2, 3, or, 4.
+            1. Strongly Disagree
+            2. Disagree
+            3. Agree
+            4. Strongly Agree\n
+        ''')
+    
+        player = run_quiz(player, questions)
+    except KeyboardInterrupt:
+        pass
+    except RuntimeError:
+        pass
+    finally:
+        print(
+            f"\nYou have a {player.get_polarity()} polarity",
+            f"and are aligned with the {player.get_alignment()} element!"
+        )
 
 
 

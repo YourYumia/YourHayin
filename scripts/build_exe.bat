@@ -14,6 +14,7 @@ if errorlevel 1 (
 python -m PyInstaller --onefile ^
   --icon=src\ourdream.ico ^
   --add-data "src\ourdream.ico;." ^
+  --add-data "src\qdb.json;." ^
   --collect-all plyer ^
   --hidden-import=plyer.platforms.win.notification ^
   --hidden-import=plyer.platforms.win ^

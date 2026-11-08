@@ -1,0 +1,125 @@
+{
+  "questions": [
+    {
+        "input str": "The things I want most are material (i.e. wealth, friends, property, items)",
+        "polarity index": 0,
+        "alignment index": 0
+    }, {
+        "input str": "I aspire to be liked and may seek affirmation (i.e. of one's identity, worth, or capability)",
+        "polarity index": 0,
+        "alignment index": 1
+    }, {
+        "input str": "I am most satisfied when I am able to directly support or aid others",
+        "polarity index": 0,
+        "alignment index": 2
+    }, {
+        "input str": "The things I want most are immaterial (i.e. liberation, equity, knowledge)",
+        "polarity index": 1,
+        "alignment index": 0
+    }, {
+        "input str": "I have particular views about myself that I attempt to self-affirm and adhere to",
+        "polarity index": 1,
+        "alignment index": 1
+    }, {
+        "input str": "I am most satisfied when learning new skills or things (including self-care)",
+        "polarity index": 1,
+        "alignment index": 2
+    }, {
+        "input str": "I feel drastically strong about my possessions and bonds",
+        "polarity index": 0,
+        "alignment index": 0
+    }, {
+        "input str": "I am best able to describe myself in relation or comparison to others",
+        "polarity index": 0,
+        "alignment index": 1
+    }, {
+        "input str": "Alienation and rejection is a significant internal fear of mine",
+        "polarity index": 0,
+        "alignment index": 2
+    }, {
+        "input str": "I am often very certain of my choices (when I make them) or even if they \"go wrong\"",
+        "polarity index": 1,
+        "alignment index": 0
+    }, {
+        "input str": "External affirmation doesn't land on me; I alone must prove things to myself",
+        "polarity index": 1,
+        "alignment index": 1
+    }, {
+        "input str": "I am drawn to knowledge and self-change especially as it relates to my goals/ideals",
+        "polarity index": 1,
+        "alignment index": 2
+    }, {
+        "input str": "My goals are hard-set and only change in response to external factors (i.e. security, company, expectations, optics, etc)",
+        "polarity index": 0,
+        "alignment index": 0
+    }, {
+        "input str": "I am most likely to change or \"adjust\" my behaviour to maintain a relationship (platonic or not)",
+        "polarity index": 0,
+        "alignment index": 1
+    }, {
+        "input str": "Humility comes to me naturally; I am a pillar of support",
+        "polarity index": 0,
+        "alignment index": 2
+    }, {
+        "input str": "I am prone to frequent episodes of contemplation and/or reflection",
+        "polarity index": 1,
+        "alignment index": 0
+    }, {
+        "input str": "I act in accordance with my own image",
+        "polarity index": 1,
+        "alignment index": 1
+    }, {
+        "input str": "I am best described as scholarly, curious, or enigmatic",
+        "polarity index": 1,
+        "alignment index": 2
+    }, {
+        "input str": "I don't tend to think about the things I can't see; I focus on what's in front of me",
+        "polarity index": 0,
+        "alignment index": 0
+    }, {
+        "input str": "I find my sense of self is clearer within a social context (next to others)",
+        "polarity index": 0,
+        "alignment index": 1
+    }, {
+        "input str": "I seek fulfillment through the betterment of my community/environment",
+        "polarity index": 0,
+        "alignment index": 2
+    }, {
+        "input str": "I deeply concern myself with or care about history, the future, ideals, and social abstractions",
+        "polarity index": 1,
+        "alignment index": 0
+    }, {
+        "input str": "In matters of the self, I am unwavered by external perspectives",
+        "polarity index": 1,
+        "alignment index": 1
+    }, {
+        "input str": "I am fulfilled by bettering the self and mind",
+        "polarity index": 1,
+        "alignment index": 2
+    }, {
+        "input str": "I can be described as \"proud\" or \"prideful\"",
+        "polarity index": 0,
+        "alignment index": 0
+    }, {
+        "input str": "I feel I have a strong tendency to pursue \"acceptance\" above all",
+        "polarity index": 0,
+        "alignment index": 1
+    }, {
+        "input str": "In any situation, I start by considering how best I may \"help\"/\"support\" others",
+        "polarity index": 0,
+        "alignment index": 2
+    }, {
+        "input str": "I can be described as a \"prudent\" person or an \"idealist\"",
+        "polarity index": 1,
+        "alignment index": 0
+    }, {
+        "input str": "I can be described as \"stubbornly self-reliant\" or \"set in my ways\"",
+        "polarity index": 1,
+        "alignment index": 1
+    }, {
+        "input str": "I am viewed as or akin to, or aspire to be, a \"polymath\" or \"savant\"",
+        "polarity index": 1,
+        "alignment index": 2
+    }
+  ]
+}

@@ -30,7 +30,7 @@ class Character:
         polarity = self.get_polarity(1)
         ali_index = 0
 
-        for i in range(0, len(polarity["elements"])):
+        for i in range(len(polarity["elements"])):
             if i == ali_index:
                 continue
             
@@ -65,6 +65,10 @@ class Character:
     def update_attr(self, polarity_i: int, element_i: int, amount: float) -> None:
         if amount != 0.0:  # don't recalculate if nothing will actually change
             self.attributes[polarity_i]["elements"][element_i] += amount
+            if amount <= 1.0:
+                self.attributes[0 if polarity_i == 1 else 1]['elements'][element_i] -= 1
+            else:
+                self.attributes[0 if polarity_i == 1 else 1]['elements'][element_i] += 1
             for attribute in self.attributes:
                 attribute["total"] = sum(attribute["elements"])
 
