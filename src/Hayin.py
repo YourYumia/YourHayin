@@ -28,7 +28,45 @@ class Character:
     # return aligned element as str
     def get_alignment(self) -> "str":
         polarity = self.get_polarity(1)
+        
+        if (polarity['elements'][0] == polarity['elements'][1] and polarity['elements'][1] == polarity['elements'][2]):
+            user_inp:int|str = None
+            err:Exception = None
+            inp_range = (0, 1, 2)
+            
+            while user_inp not in inp_range:
+                user_inp = input(
+                    "Enter the number for the option that best defines you...\n"+
+                    f"1. {'Ambition' if polarity['name'] == 'Keyo' else 'Conviction'}"+
+                    f"2. {'Acceptance' if polarity['name'] == 'Keyo' else 'Pride'}"+
+                    f"3. {'Support/Care' if polarity['name'] == 'Keyo' else 'Knowledge/Learning'}"+
+                    "\n\n/> "
+                )
+                
+                if not user_inp.isdigit():
+                    err = TypeError
+                else:
+                    user_inp = int(user_inp)-1
+                    if user_inp not in inp_range:
+                        err = ValueError
+                
+                if err != None:
+                    print(
+                        f"\n\nInvalid input received! {err}\n",
+                        "Options include...\n",
+                        "1",
+                        "2",
+                        "3\n\n"
+                    )
+                    continue
+            
+            # will return an output based on a final answer if all elements have equal points
+            return (
+                ("Illio", "Anemo", "Dendro"), ("Paega", "Gaia", "Fulma")
+            )[0 if polarity['name'] == 'Keyo' else 1][user_inp]
+        
         ali_index = 0
+        
 
         for i in range(len(polarity["elements"])):
             if i == ali_index:
@@ -55,12 +93,10 @@ class Character:
                     case [1, 2] | [2, 1]:
                         return "Anendro" if polarity["name"] == "Keyo" else "Fulgaia"
 
-            # will run if a combination element isn't present
-            return (
-                ["Illio", "Anemo", "Dendro"][ali_index]
-                if polarity["name"] == "Keyo"
-                else ["Paega", "Gaia", "Fulma"][ali_index]
-            )
+        # will run if a combination element isn't present
+        return (
+            ("Illio", "Anemo", "Dendro"), ("Paega", "Gaia", "Fulma")
+        )[0 if polarity['name'] == 'Keyo' else 1][ali_index]
 
     def update_attr(self, polarity_i: int, element_i: int, amount: float) -> None:
         if amount != 0.0:  # don't recalculate if nothing will actually change
