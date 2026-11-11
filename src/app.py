@@ -1,9 +1,11 @@
 # standard imports
 import json  # noqa: I001
+import tkinter as tk
+import pathlib
 import sys
 
 # non-standard imports
-import pathlib
+import customtkinter as ctk
 
 # local imports
 import Hayin
@@ -24,7 +26,7 @@ with open(get_file_path("qdb.json"), mode='r', encoding='utf-8') as f:
 
 
 def ask(query) -> int:
-    user_inp:int|str = None
+    user_inp:int|str|None = None
     err:Exception = None
     inp_range = (0, 1, 2, 3)
     
@@ -47,6 +49,7 @@ def ask(query) -> int:
                 "3. Agree",
                 "4. Strongly Agree\n\n"
             )
+            err = None
             continue
     
     return user_inp
@@ -61,7 +64,30 @@ def run_quiz(player:Hayin.Character, questions) -> Hayin.Character:
 
 
 
-def main(questions) -> None:
+def main(questions:tuple[Hayin.QuizEntry]) -> None:
+    # seting up window for GUI applications
+    ctk.set_appearance_mode('system')# theme matches system (light/dark)
+    ctk.set_default_color_theme('green')# button and widget colouring
+
+    app = ctk.CTk()# instantiating new window
+
+    app.title='YourHayin by your.yumia'
+    app.geometry('960x540')
+
+    init_btn = ctk.CTkButton(master=app, text='BEGIN', width=300,height=60)
+    init_btn.widgetName = 'init_btn'
+    init_btn.configure(command=init_btn.deletecommand(init_btn.widgetName))
+    init_btn.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+    print('past-init-block')
+    
+    if not init_btn.winfo_exists():
+        print('btn gone')
+        dummy_txt = ctk.CTkTextbox(master=app, corner_radius=13, border_width=1, border_color='grey')
+        dummy_txt.insert('0.0', 'hi from main!')
+        dummy_txt.configure(state='disabled')
+
+    app.mainloop()# Launch & keep window open
+    
     try:
         player:Hayin.Character = Hayin.Character();
         
@@ -74,17 +100,17 @@ def main(questions) -> None:
             3. Agree
             4. Strongly Agree\n
         ''')
-    
+
         player = run_quiz(player, questions)
     except KeyboardInterrupt:
         pass
     except RuntimeError:
         pass
-    finally:
-        print(
-            f"\nYou have a {player.get_polarity()} polarity",
-            f"and are aligned with the {player.get_alignment()} element!"
-        )
+    
+    print(
+        f"\nYou have a {player.get_polarity()} polarity",
+        f"and are aligned with the {player.get_alignment()} element!"
+    )
 
 
 

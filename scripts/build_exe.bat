@@ -3,10 +3,10 @@ setlocal
 
 cd /d "%~dp0.."
 
-python -m pip install --upgrade pyinstaller
+python -m pip install --upgrade -r src\requirements.txt
 if errorlevel 1 (
     echo.
-    echo Failed to install or upgrade PyInstaller.
+    echo Failed to install the project requirements.
     pause
     exit /b 1
 )
@@ -15,9 +15,7 @@ python -m PyInstaller --onefile ^
   --icon=src\ourdream.ico ^
   --add-data "src\ourdream.ico;." ^
   --add-data "src\qdb.json;." ^
-  --collect-all plyer ^
-  --hidden-import=plyer.platforms.win.notification ^
-  --hidden-import=plyer.platforms.win ^
+  --collect-all customtkinter ^
   --name YourHayin ^
   src\app.py
 
